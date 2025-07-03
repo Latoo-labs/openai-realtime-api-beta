@@ -28,11 +28,13 @@ export class RealtimeAPI extends RealtimeEventHandler {
     log(...args: any[]): true;
     /**
      * Connects to Realtime API Websocket Server
-     * @param {{model?: string}} [settings]
+     * PATCHED BY MGW: Added transcription parameter
+     * @param {{model?: string, transcription?: boolean}} [settings]
      * @returns {Promise<true>}
      */
-    connect({ model }?: {
+    connect({ model, transcription }?: {
         model?: string;
+        transcription?: boolean;
     }): Promise<true>;
     /**
      * Disconnects from Realtime API server

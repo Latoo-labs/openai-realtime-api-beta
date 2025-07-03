@@ -201,7 +201,7 @@ export class RealtimeClient extends RealtimeEventHandler {
     private _resetConfig;
     sessionCreated: boolean;
     tools: {};
-    inputAudioBuffer: any;
+    inputAudioBuffer: Int16Array;
     /**
      * Sets up event handlers for a fully-functional application control flow
      * @private
@@ -221,9 +221,14 @@ export class RealtimeClient extends RealtimeEventHandler {
     /**
      * Connects to the Realtime WebSocket API
      * Updates session config and conversation config
+     * PATCHED BY MGW: Added transcription and model parameters
+     * @param {{model?: string, transcription?: boolean}} [settings]
      * @returns {Promise<true>}
      */
-    connect(): Promise<true>;
+    connect({ model, transcription }?: {
+        model?: string;
+        transcription?: boolean;
+    }): Promise<true>;
     /**
      * Waits for a session.created event to be executed before proceeding
      * @returns {Promise<true>}
@@ -336,8 +341,7 @@ export type SessionResourceType = {
     model?: string;
     modalities?: string[];
     instructions?: string;
-    voice?: "alloy"|"ash"|"ballad"|"coral"|"echo"|"sage"|"shimmer"|"verse";
-
+    voice?: "alloy" | "ash" | "ballad" | "coral" | "echo" | "sage" | "shimmer" | "verse";
     input_audio_format?: AudioFormatType;
     output_audio_format?: AudioFormatType;
     input_audio_transcription?: AudioTranscriptionType | null;
